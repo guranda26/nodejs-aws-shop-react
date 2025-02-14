@@ -10,7 +10,9 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint --ignore-path .gitignore --fix src",
-    "prettier": "prettier src --write"
+    "prettier": "prettier src --write",
+    "deploy": "npm run build && cdk deploy --app 'python3 my_web_app/app.py'",
+    "destroy": "cdk destroy --app 'python3  my_web_app/app.py'"
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
