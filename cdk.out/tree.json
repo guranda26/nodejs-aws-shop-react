@@ -28,10 +28,10 @@
                       ]
                     },
                     "publicAccessBlockConfiguration": {
-                      "blockPublicAcls": false,
-                      "blockPublicPolicy": false,
-                      "ignorePublicAcls": false,
-                      "restrictPublicBuckets": false
+                      "blockPublicAcls": true,
+                      "blockPublicPolicy": true,
+                      "ignorePublicAcls": true,
+                      "restrictPublicBuckets": true
                     },
                     "tags": [
                       {
@@ -70,9 +70,28 @@
                           "Statement": [
                             {
                               "Action": "s3:GetObject",
+                              "Condition": {
+                                "StringEquals": {
+                                  "AWS:SourceArn": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:aws:cloudfront::",
+                                        {
+                                          "Ref": "AWS::AccountId"
+                                        },
+                                        ":distribution/",
+                                        {
+                                          "Ref": "Distribution830FAC52"
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              },
                               "Effect": "Allow",
                               "Principal": {
-                                "AWS": "*"
+                                "Service": "cloudfront.amazonaws.com"
                               },
                               "Resource": {
                                 "Fn::Join": [
@@ -111,6 +130,25 @@
               "fqn": "aws-cdk-lib.aws_s3.Bucket",
               "version": "2.178.2",
               "metadata": []
+            }
+          },
+          "OAC": {
+            "id": "OAC",
+            "path": "MyWebAppStack/OAC",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::CloudFront::OriginAccessControl",
+              "aws:cdk:cloudformation:props": {
+                "originAccessControlConfig": {
+                  "name": "OAC",
+                  "originAccessControlOriginType": "s3",
+                  "signingBehavior": "always",
+                  "signingProtocol": "sigv4"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_cloudfront.CfnOriginAccessControl",
+              "version": "2.178.2"
             }
           },
           "Distribution": {

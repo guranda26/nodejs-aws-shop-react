@@ -13,10 +13,10 @@
      ]
     },
     "PublicAccessBlockConfiguration": {
-     "BlockPublicAcls": false,
-     "BlockPublicPolicy": false,
-     "IgnorePublicAcls": false,
-     "RestrictPublicBuckets": false
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
     },
     "Tags": [
      {
@@ -48,9 +48,28 @@
      "Statement": [
       {
        "Action": "s3:GetObject",
+       "Condition": {
+        "StringEquals": {
+         "AWS:SourceArn": {
+          "Fn::Join": [
+           "",
+           [
+            "arn:aws:cloudfront::",
+            {
+             "Ref": "AWS::AccountId"
+            },
+            ":distribution/",
+            {
+             "Ref": "Distribution830FAC52"
+            }
+           ]
+          ]
+         }
+        }
+       },
        "Effect": "Allow",
        "Principal": {
-        "AWS": "*"
+        "Service": "cloudfront.amazonaws.com"
        },
        "Resource": {
         "Fn::Join": [
@@ -73,6 +92,20 @@
    },
    "Metadata": {
     "aws:cdk:path": "MyWebAppStack/XXXXXXXXXXXXXX/Policy/Resource"
+   }
+  },
+  "OAC": {
+   "Type": "AWS::CloudFront::OriginAccessControl",
+   "Properties": {
+    "OriginAccessControlConfig": {
+     "Name": "OAC",
+     "OriginAccessControlOriginType": "s3",
+     "SigningBehavior": "always",
+     "SigningProtocol": "sigv4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "MyWebAppStack/OAC"
    }
   },
   "Distribution830FAC52": {
@@ -364,7 +397,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/01QyW7CMBD9Fu7OVCVSlyME9VSpKEi9Ro5jYBovyGMLRVb+vU5MgNNbNH7PM2t4ff+A9YpfqRBdXyhsIR48Fz1LVhOphLgNopeeVUdzYxn2VqEYHvZNZ7HlJEcmlA3d0VnjIe6QvMM2eLRmevSsR0ZlEzt5UXbQMk3nkN3dYJxIeoLNBCNTXLcdh5hivvkg3a90NMUe0JyU9NZ8BSPmojtJowsfGXINsbZKTvaMj2UyG5eSRk0FTTqGUAibK1UK5042/yWd6pRKWRXIW11LssGJHLvwZ/Mn+EtIC+wHf7bmpYRPeFv9EWLhgvGoJdQZ/wEU6ebRmAEAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/01Qy2rDMBD8ltxllcbQx9Fx6KmQ4ECvRpY37tayFLQSwQj/e2UrTnKa2WGZ2dktf33/4NuNuFIm2z5T2PBwckL2LEp1oJyHnZc9OFae9Y0lOBqFcnzItzkNO0EwMamMb8/WaMdD3DtY7FAXUgJRGUVrFNsjOYuNd2j07PU8T4zyOrRwUWYcIJok7/1dYIIIHPFihokpMTStWKK+xQj2ByzNtifUnQJn9JfXcgm6k7i68omhGHiojIJZXvDRMbFpDanVHFDHH0mFvLhSqXDJZMst8YOxacdKT84MFZDxVibblT+LB+8uPhY4ju7X6Jecf/K3zR8hZtZrhwPwKuE/QlZUOa8BAAA="
    },
    "Metadata": {
     "aws:cdk:path": "MyWebAppStack/CDKMetadata/Default"

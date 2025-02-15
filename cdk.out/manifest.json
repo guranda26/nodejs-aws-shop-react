@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/dd796b6cc3f9546b64a6b718d1c2cb175308010b891e30b87a69bc7fb7e576c6.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/f5610df0529218173fe97cac2bc572f96f3c1282fc2e3e90c6f15b9ce5037b9d.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -44,6 +44,12 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "XXXXXXXXXXXXXXPolicyCB3DC8B3"
+          }
+        ],
+        "/MyWebAppStack/OAC": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OAC"
           }
         ],
         "/MyWebAppStack/Distribution/Resource": [
